@@ -39,7 +39,7 @@
 - name: Install Intel ONE HPC Basekit.
   ansible.builtin.shell:
     cmd: >-
-      ./l_HPCKit_"{{ hpckit_version }}".sh -f "{{ download_folder }}"/hpckit_"{{ hpckit_version }}"
+      ./l_HPCkit_"{{ hpckit_version }}".sh -f "{{ download_folder }}"/hpckit_"{{ hpckit_version }}"
       -r yes -l "{{ download_folder }}"/hpckit_"{{ hpckit_version }}"/extract_log.txt -a
       --silent --eula accept --action "{{ install_action }}"
       --install-dir "{{ install_dir }}"

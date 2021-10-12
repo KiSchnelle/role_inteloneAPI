@@ -38,7 +38,7 @@
 - name: Install Intel ONE API Basekit.
   ansible.builtin.shell:
     cmd: >-
-      ./l_BaseKit_"{{ basekit_version }}".sh -f "{{ download_folder }}"/basekit_"{{ basekit_version }}"
+      ./l_Basekit_"{{ basekit_version }}".sh -f "{{ download_folder }}"/basekit_"{{ basekit_version }}"
       -r yes -l "{{ download_folder }}"/basekit_"{{ basekit_version }}"/extract_log.txt -a
       --silent --eula accept --action "{{ install_action }}"
       --install-dir "{{ install_dir }}"
