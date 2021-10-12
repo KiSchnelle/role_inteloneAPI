@@ -3,7 +3,6 @@
   ansible.builtin.file:
     path: "{{ download_folder }}"
     state: directory
-    parents: true
     mode: 0600
 
 - name: Download Intel ONE API Basekit.
@@ -32,7 +31,6 @@
   ansible.builtin.file:
     path: "{{ log_dir }}"
     state: directory
-    parents: true
     mode: 0600
 
 # "./l_BaseKit_p_2021.3.0.3219.sh -f {{ extract_folder }} -r yes -l {{ extract_log_file }} -a --config {{ config_file }}"
