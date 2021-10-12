@@ -41,8 +41,8 @@
     cmd: >-
       ./l_HPCKit_"{{ hpckit_version }}".sh -f "{{ download_folder }}"/hpckit_"{{ hpckit_version }}"
       -r yes -l "{{ download_folder }}"/hpckit_"{{ hpckit_version }}"/extract_log.txt -a
-      --silent --eula accept --action "{{ action }}"
+      --silent --eula accept --action "{{ install_action }}"
       --install-dir "{{ install_dir }}"
       --log-dir "{{ log_dir }}" --download-cache "{{ download_cache }}"
-      --intel-sw-improvement-program-consent "{{ improvment_consent }}"
+      --intel-sw-improvement-program-consent "{{ improvement_consent }}"
     chdir: "{{ download_folder }}"
