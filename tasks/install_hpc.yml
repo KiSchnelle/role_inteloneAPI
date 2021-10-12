@@ -28,12 +28,6 @@
     state: directory
     mode: 0600
 
-- name: Create Log folder.
-  ansible.builtin.file:
-    path: "{{ log_dir }}"
-    state: directory
-    mode: 0600
-
 # "./l_BaseKit_p_2021.3.0.3219.sh -f {{ extract_folder }} -r yes -l {{ extract_log_file }} -a --config {{ config_file }}"
 # add proxy support, should work if environment proxy is set
 - name: Install Intel ONE HPC Basekit.
@@ -43,6 +37,5 @@
       -r yes -l "{{ download_folder }}"/hpckit_"{{ hpckit_version }}"/extract_log.txt -a
       --silent --eula accept --action "{{ install_action }}"
       --install-dir "{{ install_dir }}"
-      --log-dir "{{ log_dir }}" --download-cache "{{ download_cache }}"
       --intel-sw-improvement-program-consent "{{ improvement_consent }}"
     chdir: "{{ download_folder }}"
