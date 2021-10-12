@@ -11,4 +11,4 @@ install_dir: /sbdata/software/apps/intel
 # proxy:
 log_dir: /sbdata/software/log/intel
 download_cache: /tmp
-improvement_consent: false
+improvement_consent: decline
