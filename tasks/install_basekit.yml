@@ -1,0 +1,49 @@
+---
+- name: Create download folder.
+  ansible.builtin.file:
+    path: "{{ download_folder }}"
+    state: directory
+    parents: true
+    mode: 0600
+
+- name: Download Intel ONE API Basekit.
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ download_folder }}/l_Basekit_{{ basekit_version }}.sh"
+    mode: a+x
+  with_items:
+    - {
+        url: https://registrationcenter-download.intel.com/akdlm/irc_nas/17977/l_BaseKit_p_2021.3.0.3219.sh,
+        version: 2021.3,
+      }
+    - {
+        url: https://registrationcenter-download.intel.com/akdlm/irc_nas/18236/l_BaseKit_p_2021.4.0.3422.sh,
+        version: 2021.4,
+      }
+  when: item.version == basekit_version
+
+- name: Create extract folder.
+  ansible.builtin.file:
+    path: "{{ download_folder }}/basekit_{{ basekit_version }}"
+    state: directory
+    mode: 0600
+
+- name: Create Log folder.
+  ansible.builtin.file:
+    path: "{{ log_dir }}"
+    state: directory
+    parents: true
+    mode: 0600
+
+# "./l_BaseKit_p_2021.3.0.3219.sh -f {{ extract_folder }} -r yes -l {{ extract_log_file }} -a --config {{ config_file }}"
+# add proxy support, should work if environment proxy is set
+- name: Install Intel ONE API Basekit.
+  ansible.builtin.shell:
+    cmd: >-
+      ./l_BaseKit_"{{ basekit_version }}".sh -f "{{ download_folder }}"/basekit_"{{ basekit_version }}"
+      -r yes -l "{{ download_folder }}"/basekit_"{{ basekit_version }}"/extract_log.txt -a
+      --silent --eula accept --action "{{ action }}"
+      --install-dir "{{ install_dir }}"
+      --log-dir "{{ log_dir }}" --download-cache "{{ download_cache }}"
+      --intel-sw-improvement-program-consent "{{ improvment_consent }}"
+    chdir: "{{ download_folder }}"

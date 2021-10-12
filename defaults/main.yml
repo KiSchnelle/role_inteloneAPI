@@ -1,0 +1,14 @@
+---
+# defaults file for role_inteloneAPI
+install_basekit: true
+install_hpc: true
+download_folder: /sbdata/software/download
+# available versions are 2021.3 and 2021.4
+basekit_version: 2021.4
+action: install
+basekit_package_install_path: /sbdata/software/apps/Intel/
+install_dir: /sbdata/software/apps/Intel
+# proxy:
+log_dir:
+download_cache:
+improvement_consent: false

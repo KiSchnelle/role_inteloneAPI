@@ -1,0 +1,50 @@
+---
+---
+- name: Create download folder.
+  ansible.builtin.file:
+    path: "{{ download_folder }}"
+    state: directory
+    parents: true
+    mode: 0600
+
+- name: Download Intel ONE API HPCkit.
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ download_folder }}/l_HPCkit_{{ hpckit_version }}.sh"
+    mode: a+x
+  with_items:
+    - {
+        url: https://registrationcenter-download.intel.com/akdlm/irc_nas/17912/l_HPCKit_p_2021.3.0.3230.sh,
+        version: 2021.3,
+      }
+    - {
+        url: https://registrationcenter-download.intel.com/akdlm/irc_nas/18211/l_HPCKit_p_2021.4.0.3347.sh,
+        version: 2021.4,
+      }
+  when: item.version == hpckit_version
+
+- name: Create extract folder.
+  ansible.builtin.file:
+    path: "{{ download_folder }}/hpckit_{{ hpckit_version }}"
+    state: directory
+    mode: 0600
+
+- name: Create Log folder.
+  ansible.builtin.file:
+    path: "{{ log_dir }}"
+    state: directory
+    parents: true
+    mode: 0600
+
+# "./l_BaseKit_p_2021.3.0.3219.sh -f {{ extract_folder }} -r yes -l {{ extract_log_file }} -a --config {{ config_file }}"
+# add proxy support, should work if environment proxy is set
+- name: Install Intel ONE HPC Basekit.
+  ansible.builtin.shell:
+    cmd: >-
+      ./l_HPCKit_"{{ hpckit_version }}".sh -f "{{ download_folder }}"/hpckit_"{{ hpckit_version }}"
+      -r yes -l "{{ download_folder }}"/hpckit_"{{ hpckit_version }}"/extract_log.txt -a
+      --silent --eula accept --action "{{ action }}"
+      --install-dir "{{ install_dir }}"
+      --log-dir "{{ log_dir }}" --download-cache "{{ download_cache }}"
+      --intel-sw-improvement-program-consent "{{ improvment_consent }}"
+    chdir: "{{ download_folder }}"

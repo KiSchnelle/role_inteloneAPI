@@ -1,0 +1,12 @@
+---
+# perform prechecks
+- include_tasks: prechecks.yml
+
+# install dependencies
+- include_tasks: deps.yml
+
+- include_tasks: install_basekit.yml
+  when: install_basekit
+
+- include_tasks: install_hpc.yml
+  when: install_hpc
