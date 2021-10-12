@@ -6,7 +6,7 @@ download_folder: /sbdata/software/download
 # available versions are 2021.3 and 2021.4
 basekit_version: 2021.4
 hpckit_version: 2021.4
-action: install
+install_action: install
 install_dir: /sbdata/software/apps/intel
 # proxy:
 log_dir: /sbdata/software/log/intel
